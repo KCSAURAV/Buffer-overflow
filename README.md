@@ -28,9 +28,10 @@ gcc vuln.c -o vuln -fno-stackprotector -z execstack
 
 -z execstack makes the vuln file stack executable
 
-•	I set permission of the vuln file as an executable binary that is owned by root, has the suid bit set to be user executable, and is vulnerable to buffer overflow. Mainly, it is set like this for debugging by the gdb( GNU debugger).
+•	I set permission of the vuln file as an executable binary that is owned by root, has the suid bit set to be user executable, and is vulnerable to buffer overflow. Mainly, it is set like this for debugging by the other user in gdb( GNU debugger).
 
 # Procedures in GDB:
+DO THESE PROCEDURES BELOW BY ANY OTHER USER THAN ROOT TO GAIN ROOT SHELL...
 
 <b>a. Find out where the start of the buffer is in memory: </b>
 
