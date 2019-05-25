@@ -1,4 +1,4 @@
-# Stack based buffer-overflow on Cent OS(or any x32 linux OS)
+# Stack based buffer-overflow on Cent OS(or any x84 linux OS)
 
 Stack grows from high address to low address (while buffer grows from low - high address) 
 
